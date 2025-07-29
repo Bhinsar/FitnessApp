@@ -17,7 +17,7 @@ const port = process.env.PORT || 8080;
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-readdirSync("./src/routes").map((r) => app.use("/", require("./routes/" + r)));
+readdirSync("./src/routes").map((r) => app.use("/", require("./src/routes/" + r)));
 
 app.get("/", (req, res) => {
   res.send("Server is running");
