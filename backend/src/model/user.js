@@ -30,6 +30,17 @@ const userSchema = new Schema({
         dateOfBirth: {
             type: Date,
         },
+        //user gender is important for personalized recommendations.
+        gender: {
+            type: String,
+            enum: ['male', 'female']
+        },
+        // The user's preferred meal type for dietary recommendations.
+        mealType: {
+            type: String,
+            enum: ['vegetarian', 'non-vegetarian', 'vegan'],
+            default: 'vegetarian'
+        },
         // We can store a history of weight entries to track progress.
         weight: [{
             valueKg: { type: Number },
