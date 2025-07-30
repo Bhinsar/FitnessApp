@@ -23,7 +23,16 @@ const aiPlanSchema = new Schema({
     // Storing this is great for debugging and fine-tuning.
     sourcePrompt: {
         type: String
-    }
+    },
+    // Add these two fields: to track the start and end dates of the plan.
+    startDate: {
+        type: Date,
+        required: true
+    },
+    endDate: {
+        type: Date,
+        required: true
+    },
 }, {
     timestamps: true,
     strict: false

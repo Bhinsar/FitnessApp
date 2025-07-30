@@ -140,7 +140,7 @@ exports.refreshToken = async (req, res) => {
 //Profile Update
 exports.updateProfile = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const { _id: userId } = req.user;
     const { name, email, profile } = req.body;
     // Validate required fields
     if (!name || !profile) {
@@ -156,7 +156,7 @@ exports.updateProfile = async (req, res) => {
     // Update user profile
     user.name = name.trim();
     user.profile = profile;
-    if (email) {
+    if (user.email !== email) {
       // Check if email is already in use
       const existingUser = await User.findOne({ email: email });
       if (existingUser && existingUser._id.toString() !== userId) {
