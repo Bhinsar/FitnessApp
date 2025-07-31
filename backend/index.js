@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 readdirSync("./src/routes").map((r) => app.use("/", require("./src/routes/" + r)));
 
-app.get("/", (req, res) => {
+app.get("/running", (req, res) => {
   res.send("Server is running");
 });
 
