@@ -19,7 +19,7 @@ readdirSync(routesPath).map((r) =>
   app.use("/", require(path.join(routesPath, r)))
 );
 
-app.get("/running", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Server is running");
 });
 
