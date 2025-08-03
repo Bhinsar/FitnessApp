@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:frontend/model/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/apis/root_url.dart';
@@ -15,7 +16,7 @@ class Auth {
   }
 
   // Login method now returns a Map of tokens
-  Future<Map<String, String>> login(String email, String password) async {
+  Future<Map<String, dynamic>> login(String email, String password) async {
     final url = Uri.parse('$_baseURL/login');
     try {
       final response = await http.post(
@@ -26,8 +27,8 @@ class Auth {
 
       // For debugging: print the raw response body and status code
       final responseData = jsonDecode(response.body);
-      print('responseData: $responseData');
-      print('API Response Body: ${response.body}');
+      /*print('responseData: $responseData');
+      print('API Response Body: ${response.body}');*/
 
       // 1. Check for a successful response FIRST
       if (response.statusCode == 200) {
@@ -38,7 +39,7 @@ class Auth {
 
         await _persistTokens(accessToken, refreshToken);
 
-        print("Login successful! Tokens stored.");
+       /* print("Login successful! Tokens stored.");*/
         return {'accessToken': accessToken, 'refreshToken': refreshToken};
       } else {
         // 3. Handle errors. Try to decode the error message, but have a fallback.
@@ -58,6 +59,44 @@ class Auth {
       // This will catch network errors or the exceptions thrown above.
       print(e); // For debugging
       // Re-throw the original exception to preserve the specific error message
+      rethrow;
+    }
+  }
+
+  //Register User
+  Future<Map<String, dynamic>> registerUser(User user) async{
+    try{
+      final url = Uri.parse('$_baseURL/register');
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(user)
+      );
+      final responseData = jsonDecode(response.body);
+      if(response.statusCode == 201){
+        final String accessToken = responseData['token'];
+        final String refreshToken = responseData['refreshToken'];
+
+        await _persistTokens(accessToken, refreshToken);
+
+        /* print("Login successful! Tokens stored.");*/
+        return {'accessToken': accessToken, 'refreshToken': refreshToken};
+      }else {
+        // 3. Handle errors. Try to decode the error message, but have a fallback.
+        String errorMessage = 'An unknown server error occurred.';
+        try {
+          // Attempt to get the specific error message from the server
+          final responseData = jsonDecode(response.body);
+          errorMessage = responseData['message'] ?? 'The server returned an error without a message.';
+        } catch (e) {
+          // If decoding fails, the body was not JSON. Use the status code as a fallback.
+          print('Could not parse error response as JSON.');
+          errorMessage = 'Server Error: ${response.statusCode}';
+        }
+        throw Exception(errorMessage);
+      }
+    }catch(e){
+      print(e);
       rethrow;
     }
   }

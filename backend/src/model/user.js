@@ -42,10 +42,10 @@ const userSchema = new Schema({
             default: 'vegetarian'
         },
         // We can store a history of weight entries to track progress.
-        weight: [{
+        weight: {
             valueKg: { type: Number },
             date: { type: Date, default: Date.now }
-        }],
+        },
         heightCm: {
             type: Number,
         },

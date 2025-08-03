@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/screen/home_screen/home_screen.dart';
 import 'package:frontend/screen/login_screen/login_screen.dart';
+import 'package:frontend/screen/register_screen/register_screen.dart';
 import 'package:frontend/screen/splash_screen/splash_screen.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +20,8 @@ class MyApp extends StatelessWidget {
       home: const SplashScreen(),
       routes: {
         '/login': (context) => const LoginScreen(),
+        '/home' : (context) => const HomeScreen(),
+        '/register' : (context) => const RegistrationScreen(),
       },
     );
   }

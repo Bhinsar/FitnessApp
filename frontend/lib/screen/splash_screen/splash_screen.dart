@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:frontend/apis/auth/auth.dart';
 import '../../utils/dimensions.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,12 +12,26 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
+  final Auth _authService = Auth();
+
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), (){
-      Navigator.pushReplacementNamed(context, '/login');
-    });
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    final token = await _authService.getToken();
+    // Check if the token exists. We assume 'authToken' is the key you use.
+    if (token != null && token.isNotEmpty) {
+      Timer(Duration(seconds: 3), (){
+        Navigator.pushReplacementNamed(context, '/home');
+      });
+    }else{
+      Timer(Duration(seconds: 3), (){
+        Navigator.pushReplacementNamed(context, '/login');
+      });
+    }
   }
 
   @override

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../apis/auth/auth.dart';
 import '../../utils/dimensions.dart';
-import '../../utils/snackbar_utils.dart';
+import '../../widgets/snackbar_utils.dart';
 import '../home_screen/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     emailController.dispose();
-    passwordController.dispose();
+    passwordController.dispose(); 
     super.dispose();
   }
 
@@ -161,6 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: Dimensions.height20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.32),
                     elevation: 5, // Shadow effect
                     shadowColor: Colors.white,
                   ),
@@ -173,6 +174,34 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.white, strokeWidth: 2))
                       : const Text('Submit'),
                 ),
+                SizedBox(height: Dimensions.height15,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Haven't any account?",
+                      style: TextStyle(
+                        fontSize: Dimensions.font12,
+                        color: Colors.white
+                      ),
+                    ),
+                    SizedBox(width: 2,),
+                    InkWell(
+                      onTap: () {
+                        // Navigate to the SignUp screen
+                        Navigator.pushNamed(context, '/register'); // Replace with your screen
+                      },
+                      child: Text(
+                        "Sign Up",
+                        style: TextStyle(
+                          fontSize: Dimensions.font12,
+                          color: Colors.blue, // Changed color to indicate it's a link
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  ],
+                )
               ],
             ),
           ),
