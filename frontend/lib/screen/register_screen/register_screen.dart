@@ -4,6 +4,7 @@ import 'package:frontend/model/user.dart';
 import 'package:frontend/screen/register_screen/profile_info.dart';
 import 'package:frontend/utils/dimensions.dart';
 import 'package:frontend/widgets/snackbar_utils.dart';
+import 'package:go_router/go_router.dart';
 import '../home_screen/home_screen.dart';
 import 'account_info.dart';
 import 'fitness_info.dart';
@@ -80,9 +81,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       SnackbarUtils.showSuccess(context, 'Register Successful!');
 
       // Use pushReplacement to prevent the user from going back to the login screen
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
+      context.go("/home");
     }catch(e){
       SnackbarUtils.showError(context, e.toString());
     }finally{
@@ -105,6 +104,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final d = Dimensions(context);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -121,7 +121,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: Dimensions.width45, vertical: Dimensions.height30),
+        padding: EdgeInsets.symmetric(horizontal: d.width45, vertical: d.height30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -129,16 +129,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               "Step ${(_currentPage+1)} of ${_pages.length}",
               style: TextStyle(
                 color: Colors.white,
-                fontSize: Dimensions.font10
+                fontSize: d.font10
               ),
             ),
-            SizedBox(height: Dimensions.height10 /2,),
+            SizedBox(height: d.height10 /2,),
             LinearProgressIndicator(
               value: (_currentPage +1) / _pages.length,
               backgroundColor: Colors.grey[300],
               valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFA34BFA)!),
             ),
-            SizedBox(height: Dimensions.height15),
+            SizedBox(height: d.height15),
             Expanded(
                 child: PageView(
                   controller: _pageController,

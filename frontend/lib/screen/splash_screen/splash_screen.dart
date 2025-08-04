@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:frontend/apis/auth/auth.dart';
+import 'package:go_router/go_router.dart';
 import '../../utils/dimensions.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,28 +15,18 @@ class _SplashScreenState extends State<SplashScreen> {
 
   final Auth _authService = Auth();
 
+
   @override
   void initState() {
     super.initState();
-    _checkLoginStatus();
-  }
-
-  Future<void> _checkLoginStatus() async {
-    final token = await _authService.getToken();
-    // Check if the token exists. We assume 'authToken' is the key you use.
-    if (token != null && token.isNotEmpty) {
-      Timer(Duration(seconds: 3), (){
-        Navigator.pushReplacementNamed(context, '/home');
-      });
-    }else{
-      Timer(Duration(seconds: 3), (){
-        Navigator.pushReplacementNamed(context, '/login');
-      });
-    }
+    Timer(Duration(seconds: 3), (){
+      context.go('/login');
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final d = Dimensions(context);
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -50,10 +41,10 @@ class _SplashScreenState extends State<SplashScreen> {
               height: height * 0.3,
               fit: BoxFit.cover,
             ),
-            SizedBox(height: Dimensions.height20),
+            SizedBox(height: d.height20),
             Text(
               'Welcome to AI FIT',
-              style: TextStyle(fontSize: Dimensions.font24, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(fontSize: d.font24, fontWeight: FontWeight.bold, color: Colors.white),
             ),
           ],
         ),

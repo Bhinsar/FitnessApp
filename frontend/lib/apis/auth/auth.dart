@@ -46,7 +46,6 @@ class Auth {
         String errorMessage = 'An unknown server error occurred.';
         try {
           // Attempt to get the specific error message from the server
-          final responseData = jsonDecode(response.body);
           errorMessage = responseData['message'] ?? 'The server returned an error without a message.';
         } catch (e) {
           // If decoding fails, the body was not JSON. Use the status code as a fallback.

@@ -1,41 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class Dimensions {
-  // Reference dimensions (e.g., based on iPhone 12 Pro: 844x390)
+  final double screenHeight;
+  final double screenWidth;
+
+  // The constructor gets the screen size ONCE when you create an instance.
+  Dimensions(BuildContext context)
+      : screenHeight = MediaQuery.of(context).size.height,
+        screenWidth = MediaQuery.of(context).size.width;
+
+  // Reference dimensions from your design file (e.g., Figma, Adobe XD)
   static const double _referenceHeight = 844.0;
   static const double _referenceWidth = 390.0;
 
-  // Get screen dimensions dynamically using MediaQuery
-  static double get screenHeight => MediaQuery.sizeOf(Get.context!).height;
-  static double get screenWidth => MediaQuery.sizeOf(Get.context!).width;
+  // --- Scale Factors ---
+  // These calculate the difference between the actual screen and your design.
+  double get heightScaleFactor => screenHeight / _referenceHeight;
+  double get widthScaleFactor => screenWidth / _referenceWidth;
 
-  // Scale factor for responsiveness
-  static double get heightScaleFactor => screenHeight / _referenceHeight;
-  static double get widthScaleFactor => screenWidth / _referenceWidth;
+  // --- Correctly Scaled Height Dimensions ---
+  // The logic is now: base_size * scale_factor
+  double get height10 => 10.0 * heightScaleFactor;
+  double get height15 => 15.0 * heightScaleFactor;
+  double get height20 => 20.0 * heightScaleFactor;
+  double get height30 => 30.0 * heightScaleFactor;
+  double get height45 => 45.0 * heightScaleFactor;
 
-  // Responsive height dimensions
-  static double get height10 => screenHeight / 84.4 * heightScaleFactor;
-  static double get height15 => screenHeight / 56.27 * heightScaleFactor;
-  static double get height20 => screenHeight / 42.2 * heightScaleFactor;
-  static double get height30 => screenHeight / 28.13 * heightScaleFactor;
-  static double get height45 => screenHeight / 19.56 * heightScaleFactor;
+  // --- Correctly Scaled Width Dimensions ---
+  double get width10 => 10.0 * widthScaleFactor;
+  double get width15 => 15.0 * widthScaleFactor;
+  double get width20 => 20.0 * widthScaleFactor;
+  double get width30 => 30.0 * widthScaleFactor;
+  double get width45 => 45.0 * widthScaleFactor;
 
-  // Responsive width dimensions
-  static double get width10 => screenWidth / 84.4 * widthScaleFactor;
-  static double get width15 => screenWidth / 56.27 * widthScaleFactor;
-  static double get width20 => screenWidth / 42.2 * widthScaleFactor;
-  static double get width30 => screenWidth / 28.13 * widthScaleFactor;
-  static double get width45 => screenWidth / 19.56 * widthScaleFactor;
-
-  // Responsive font sizes
-  static double get font10 => screenHeight / 84.4 * heightScaleFactor;
-  static double get font12 => screenHeight / 70.33 * heightScaleFactor;
-  static double get font15 => screenHeight / 56.27 * heightScaleFactor;
-  static double get font16 => screenHeight / 52.75 * heightScaleFactor;
-  static double get font18 => screenHeight / 46.89 * heightScaleFactor;
-  static double get font20 => screenHeight / 42.2 * heightScaleFactor;
-  static double get font24 => screenHeight / 35.17 * heightScaleFactor;
-  static double get font26 => screenHeight / 32.46 * heightScaleFactor;
-
+  // --- Correctly Scaled Font Sizes ---
+  // Note: Fonts usually scale best with the height factor.
+  double get font10 => 10.0 * heightScaleFactor;
+  double get font12 => 12.0 * heightScaleFactor;
+  double get font15 => 15.0 * heightScaleFactor;
+  double get font16 => 16.0 * heightScaleFactor;
+  double get font18 => 18.0 * heightScaleFactor;
+  double get font20 => 20.0 * heightScaleFactor;
+  double get font24 => 24.0 * heightScaleFactor;
+  double get font26 => 26.0 * heightScaleFactor;
 }

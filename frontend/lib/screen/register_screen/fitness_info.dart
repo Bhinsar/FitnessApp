@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/model/user.dart';
-import 'package:frontend/utils/dimensions.dart';
+import 'package:frontend/utils/Dimensions.dart';
 
 class FitnessInfo extends StatefulWidget {
   final User data;
@@ -33,14 +33,15 @@ class _FitnessInfoState extends State<FitnessInfo> {
 
   @override
   Widget build(BuildContext context) {
+    final d = Dimensions(context);
     return SingleChildScrollView(
         child:Form(
             key: widget.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Fitness Profile', style: TextStyle(fontSize: Dimensions.font24, color: Colors.white,fontWeight: FontWeight.bold)),
-                SizedBox(height: Dimensions.height10,),
+                Text('Fitness Profile', style: TextStyle(fontSize: d.font24, color: Colors.white,fontWeight: FontWeight.bold)),
+                SizedBox(height: d.height10,),
                 DropdownButtonFormField<String>(
                   value: widget.data.profile?.mealType.toLowerCase(),
                   selectedItemBuilder: (BuildContext context) {
@@ -83,7 +84,7 @@ class _FitnessInfoState extends State<FitnessInfo> {
                   },
                   validator: (String? value) => value == null ? 'Meal Type is required.' : null,
                 ),
-                SizedBox(height: Dimensions.height10,),
+                SizedBox(height: d.height10,),
                 DropdownButtonFormField<String>(
                   value: widget.data.profile?.activityLevel.toLowerCase().replaceAll(" ", "_"),
                   selectedItemBuilder: (BuildContext context) {
@@ -124,16 +125,16 @@ class _FitnessInfoState extends State<FitnessInfo> {
                   },
                   validator: (String? value) => value == null ? 'Activity Level is required.' : null,
                 ),
-                SizedBox(height: Dimensions.height10,),
+                SizedBox(height: d.height10,),
                 Text(
                   "Your Fitness Goal",
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: Dimensions.font16,
+                      fontSize: d.font16,
                       fontWeight: FontWeight.w600
                   ),
                 ),
-                SizedBox(height: Dimensions.height10,),
+                SizedBox(height: d.height10,),
                 ..._allGoals.map((goal) => CheckboxListTile(
                   title: Text(goal.replaceAll('_', ' ').toUpperCase(), style: TextStyle(color: Colors.white),),
                   value: widget.data.profile?.goals.contains(goal)?? false,
@@ -148,16 +149,16 @@ class _FitnessInfoState extends State<FitnessInfo> {
                     });
                   },
                 )),
-                SizedBox(height: Dimensions.height10,),
+                SizedBox(height: d.height10,),
                 Text(
                   "Available Equipment",
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: Dimensions.font16,
+                      fontSize: d.font16,
                       fontWeight: FontWeight.w600
                   ),
                 ),
-                SizedBox(height: Dimensions.height10,),
+                SizedBox(height: d.height10,),
                 ..._allEquipment.map((equipment) => CheckboxListTile(
                   title: Text(equipment.replaceAll('_', ' ').toUpperCase(), style: TextStyle(color: Colors.white),),
                   value: widget.data.profile?.availableEquipment.contains(equipment) ?? false,

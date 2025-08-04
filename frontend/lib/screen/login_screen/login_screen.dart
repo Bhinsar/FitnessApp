@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../apis/auth/auth.dart';
 import '../../utils/dimensions.dart';
@@ -45,9 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
       SnackbarUtils.showSuccess(context, 'Login Successful!');
 
       // Use pushReplacement to prevent the user from going back to the login screen
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
+      context.go("/home");
 
     } catch (e) {
       SnackbarUtils.showError(context, e.toString().replaceFirst('Exception: ', ''));
@@ -60,6 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final d = Dimensions(context);
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -79,15 +79,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: height * 0.3,
                   fit: BoxFit.cover,
                 ),
-                SizedBox(height: Dimensions.height20),
+                SizedBox(height: d.height20),
                 Text(
                   'Login',
                   style: TextStyle(
-                      fontSize: Dimensions.font24,
+                      fontSize: d.font24,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-                SizedBox(height: Dimensions.height20),
+                SizedBox(height: d.height20),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 50),
                   child: Column(
@@ -118,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           return null;
                         },
                       ),
-                      SizedBox(height: Dimensions.height10),
+                      SizedBox(height: d.height10),
                       // 4. Change TextField to TextFormField here as well
                       TextFormField(
                         controller: passwordController,
@@ -158,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: Dimensions.height20),
+                SizedBox(height: d.height20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: width * 0.32),
@@ -174,27 +174,26 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.white, strokeWidth: 2))
                       : const Text('Submit'),
                 ),
-                SizedBox(height: Dimensions.height15,),
+                SizedBox(height: d.height15,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Haven't any account?",
                       style: TextStyle(
-                        fontSize: Dimensions.font12,
+                        fontSize: d.font12,
                         color: Colors.white
                       ),
                     ),
                     SizedBox(width: 2,),
                     InkWell(
                       onTap: () {
-                        // Navigate to the SignUp screen
-                        Navigator.pushNamed(context, '/register'); // Replace with your screen
+                        context.go('/register');
                       },
                       child: Text(
                         "Sign Up",
                         style: TextStyle(
-                          fontSize: Dimensions.font12,
+                          fontSize: d.font12,
                           color: Colors.blue, // Changed color to indicate it's a link
                           fontWeight: FontWeight.bold,
                         ),

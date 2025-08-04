@@ -24,6 +24,7 @@ class _AccountInfoState extends State<AccountInfo> {
 
   @override
   Widget build(BuildContext context) {
+    final d = Dimensions(context);
     return Center(
       child: Form(
         key: widget.formKey,
@@ -33,12 +34,12 @@ class _AccountInfoState extends State<AccountInfo> {
             Text(
               'Account Information',
               style: TextStyle(
-                fontSize: Dimensions.font24,
+                fontSize: d.font24,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: Dimensions.height10/2),
+            SizedBox(height: d.height10/2),
             TextFormField(
               initialValue: widget.data.name,
               keyboardType: TextInputType.text,
@@ -66,7 +67,7 @@ class _AccountInfoState extends State<AccountInfo> {
                 return null;
               },
             ),
-            SizedBox(height: Dimensions.height10),
+            SizedBox(height: d.height10),
             TextFormField(
               initialValue: widget.data.email,
               keyboardType: TextInputType.emailAddress,
@@ -96,7 +97,7 @@ class _AccountInfoState extends State<AccountInfo> {
                 });
               },
             ),
-            SizedBox(height: Dimensions.height10),
+            SizedBox(height: d.height10),
             TextFormField(
               initialValue: widget.data.password,
               obscureText: !isPasswordVisible,
@@ -134,7 +135,7 @@ class _AccountInfoState extends State<AccountInfo> {
                 return null;
               },
             ),
-            SizedBox(height: Dimensions.height10),
+            SizedBox(height: d.height10),
             TextFormField(
               controller: _confirmPassword,
               obscureText: !isPasswordVisible,
@@ -189,7 +190,7 @@ class _AccountInfoState extends State<AccountInfo> {
                   "Show Password",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: Dimensions.font12,
+                    fontSize: d.font12,
                   ),
                 ),
               ],
@@ -198,7 +199,7 @@ class _AccountInfoState extends State<AccountInfo> {
               Text(
                 "Your Password and Confirm Password don't match",
                 style: TextStyle(
-                  fontSize: Dimensions.font12,
+                  fontSize: d.font12,
                   color: Colors.red,
                 ),
               ),

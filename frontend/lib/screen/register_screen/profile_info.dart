@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/model/user.dart';
-import 'package:frontend/utils/dimensions.dart';
 import 'package:intl/intl.dart';
+
+import '../../utils/dimensions.dart';
 
 class ProfileInfo extends StatefulWidget {
   final User data;
@@ -43,13 +44,14 @@ class _ProfileInfoState extends State<ProfileInfo> {
   }
   @override
   Widget build(BuildContext context) {
+    final d = Dimensions(context);
     return Center(
         child: Form(
           key: widget.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Personal Details', style: TextStyle(fontSize: Dimensions.font24, color: Colors.white, fontWeight: FontWeight.bold)),
+                Text('Personal Details', style: TextStyle(fontSize: d.font24, color: Colors.white, fontWeight: FontWeight.bold)),
                 TextFormField(
                   controller: _dateController,
                   decoration: const InputDecoration(
@@ -67,7 +69,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                   onTap: () => _selectDate(context),
                   validator: (value) => value!.isEmpty ? 'Date of Birth is required.' : null,
                 ),
-                SizedBox(height: Dimensions.height10,),
+                SizedBox(height: d.height10,),
                 DropdownButtonFormField<String>(
                   value: widget.data.profile?.gender?.toLowerCase(),
                   // The 'selectedItemBuilder' gives you full control over the selected item's appearance.
@@ -110,7 +112,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                   },
                   validator: (String? value) => value == null ? 'Gender is required.' : null,
                 ),
-                SizedBox(height: Dimensions.height10,),
+                SizedBox(height: d.height10,),
                 TextFormField(
                   initialValue: widget.data.profile?.heightCm?.toString(),
                   style: TextStyle(
@@ -130,7 +132,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                   onChanged: (value) => widget.data.profile?.heightCm = double.tryParse(value),
                   validator: (value) => value!.isEmpty ? 'Height is required.' : null,
                 ),
-                SizedBox(height: Dimensions.height10,),
+                SizedBox(height: d.height10,),
                 TextFormField(
                   initialValue: widget.data.profile?.weight?.valueKg?.toString(),
                   style: TextStyle(
