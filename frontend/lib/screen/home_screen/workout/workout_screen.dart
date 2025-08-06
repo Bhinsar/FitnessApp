@@ -62,7 +62,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // This build method remains mostly the same
     final d = Dimensions(context);
     return Container(
       decoration: const BoxDecoration(
