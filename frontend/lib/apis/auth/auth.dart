@@ -1,11 +1,10 @@
 import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:frontend/model/user.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:frontend/apis/root_url.dart';
-
+import 'package:frontend/apis/dio_client.dart';
 class Auth {
-  static final String _baseURL = '${RootUrl.url}/auth';
+  final Dio _dio = DioClient().dio;
   // Create an instance of secure storage
   final _storage = const FlutterSecureStorage();
 
@@ -17,16 +16,14 @@ class Auth {
 
   // Login method now returns a Map of tokens
   Future<Map<String, dynamic>> login(String email, String password) async {
-    final url = Uri.parse('$_baseURL/login');
     try {
-      final response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'email': email, 'password': password}),
+      final response = await _dio.post(
+        '/auth/login',
+        data: jsonEncode({'email': email, 'password': password}),
       );
 
       // For debugging: print the raw response body and status code
-      final responseData = jsonDecode(response.body);
+      final responseData = response.data;
       /*print('responseData: $responseData');
       print('API Response Body: ${response.body}');*/
 
@@ -65,13 +62,11 @@ class Auth {
   //Register User
   Future<Map<String, dynamic>> registerUser(User user) async{
     try{
-      final url = Uri.parse('$_baseURL/register');
-      final response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(user)
+      final response = await _dio.post(
+        "/auth/register",
+        data: user.toJson()
       );
-      final responseData = jsonDecode(response.body);
+      final responseData = response.data;
       if(response.statusCode == 201){
         final String accessToken = responseData['token'];
         final String refreshToken = responseData['refreshToken'];
@@ -85,7 +80,6 @@ class Auth {
         String errorMessage = 'An unknown server error occurred.';
         try {
           // Attempt to get the specific error message from the server
-          final responseData = jsonDecode(response.body);
           errorMessage = responseData['message'] ?? 'The server returned an error without a message.';
         } catch (e) {
           // If decoding fails, the body was not JSON. Use the status code as a fallback.

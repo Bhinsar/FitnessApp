@@ -4,7 +4,7 @@ const { generateAIWorkoutPlan, getExerciseGif, generateAIMealPlan} = require('..
 const router = express.Router();
 
 router.get("/aiPlan/generateAIWorkoutPlan", authMiddleware, generateAIWorkoutPlan);
-router.get("/aiPlan/get-gif",  getExerciseGif);
+router.get("/aiPlan/get-gif", getExerciseGif);
 router.get("/aiPlan/generateAIMealPlan", authMiddleware, generateAIMealPlan);
 
 module.exports = router;

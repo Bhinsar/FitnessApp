@@ -13,6 +13,10 @@ class Dimensions {
   static const double _referenceHeight = 844.0;
   static const double _referenceWidth = 390.0;
 
+  // width and height
+  double get height => screenHeight;
+  double get width => screenWidth;
+
   // --- Scale Factors ---
   // These calculate the difference between the actual screen and your design.
   double get heightScaleFactor => screenHeight / _referenceHeight;

@@ -5,7 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/apis/root_url.dart';
 import 'package:http/http.dart' as http;
 
-class DioClinet{
+class DioClient{
   final Dio _dio = Dio();
   final _storage = const FlutterSecureStorage();
   static final String _baseURL =RootUrl.url;

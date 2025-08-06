@@ -182,9 +182,6 @@ exports.getExerciseGif = async (req, res) => {
 
     // Set the correct content type for the response (e.g., image/gif)
     res.setHeader('Content-Type', imageResponse.headers.get('content-type'));
-
-    // Pipe the image data directly to the client's response.
-    // This is efficient as it streams the data without storing it in server memory.
     imageResponse.body.pipe(res);
 
   } catch (error) {
